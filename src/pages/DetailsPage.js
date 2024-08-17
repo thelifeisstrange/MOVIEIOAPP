@@ -8,6 +8,7 @@ import Divider from '../components/Divider';
 import HorizontalScollCard from '../components/HorizontalScollCard';
 import VideoPlay from '../components/VideoPlay';
 import { FaStar } from "react-icons/fa";
+import ConfirmationModal from '../components/ConfirmationModal';
 
 const DetailsPage = () => {
   const params = useParams();
@@ -23,6 +24,9 @@ const DetailsPage = () => {
   const [currentRating, setCurrentRating] = useState(0);  // State for star rating
   const [hoverRating, setHoverRating] = useState(undefined);  // State for star hover
   const [formError, setFormError] = useState("");  // State for form validation errors
+  const [editingIndex, setEditingIndex] = useState(null); // State for editing review index
+  const [showConfirmation, setShowConfirmation] = useState(false); // State for showing confirmation modal
+  const [reviewToDelete, setReviewToDelete] = useState(null); // State to keep track of the review to delete
 
   const handlePlayVideo = (data) => {
     setPlayVideoId(data);
@@ -41,11 +45,49 @@ const DetailsPage = () => {
       return;
     }
 
-    // Add review to the state
-    setReviews([...reviews, { review: reviewInput, rating: currentRating, date: new Date() }]);
+    if (editingIndex !== null) {
+      // Editing existing review
+      const updatedReviews = reviews.map((review, index) =>
+        index === editingIndex ? { review: reviewInput, rating: currentRating, date: new Date() } : review
+      );
+      setReviews(updatedReviews);
+      setEditingIndex(null);
+    } else {
+      // Adding new review
+      setReviews([...reviews, { review: reviewInput, rating: currentRating, date: new Date() }]);
+    }
+
     setReviewInput("");
     setCurrentRating(0);
     setFormError(""); // Reset error message
+  };
+
+  const handleEditReview = (index) => {
+    setEditingIndex(index);
+    setReviewInput(reviews[index].review);
+    setCurrentRating(reviews[index].rating);
+  };
+
+  const handleDeleteReview = (index) => {
+    setShowConfirmation(true);
+    setReviewToDelete(index);
+  };
+
+  const confirmDelete = () => {
+    // Delete the review
+    const updatedReviews = reviews.filter((_, i) => i !== reviewToDelete);
+    setReviews(updatedReviews);
+
+    // Reset form and hide modal
+    setReviewInput("");
+    setCurrentRating(0);
+    setShowConfirmation(false);
+    setReviewToDelete(null);
+  };
+
+  const cancelDelete = () => {
+    setShowConfirmation(false);
+    setReviewToDelete(null);
   };
 
   const handleStarClick = (value) => {
@@ -172,6 +214,8 @@ const DetailsPage = () => {
                   <div key={index} className='my-4'>
                     <p className='font-bold'>{moment(review.date).format("MMMM Do YYYY")} - Rating: {review.rating}/5</p>
                     <p>{review.review}</p>
+                    <button onClick={() => handleEditReview(index)} className='text-blue-500 hover:underline'>Edit</button>
+                    <button onClick={() => handleDeleteReview(index)} className='text-red-500 hover:underline ml-4'>Delete</button>
                     <Divider />
                   </div>
                 ))
@@ -215,6 +259,14 @@ const DetailsPage = () => {
         )
       }
 
+      {/* Confirmation Modal */}
+      {showConfirmation && (
+        <ConfirmationModal
+          message="Are you sure you want to delete this review?"
+          onConfirm={confirmDelete}
+          onCancel={cancelDelete}
+        />
+      )}
     </div>
   );
 };

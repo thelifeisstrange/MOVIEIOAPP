@@ -63,7 +63,7 @@ const BannerHome = () => {
                                         <h2 className='font-bold text-2xl lg:text-4xl text-white drop-shadow-2xl '>{data?.title || data?.name}</h2>
                                         <p className='text-ellipsis line-clamp-3 my-2'>{data.overview}</p>
                                         <div className='flex items-center gap-4'>
-                                            <p>Rating : { Number(data.vote_average).toFixed(1) }+</p>
+                                            <p>Rating : { Number(data.vote_average).toFixed(1) }+ IMDB</p>
                                             <span>|</span>
                                             <p>View : { Number(data.popularity).toFixed(0) }</p>
                                         </div>

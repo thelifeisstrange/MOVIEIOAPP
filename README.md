@@ -2,6 +2,9 @@
 
 Welcome to the **Movie Review Application**! This project is a React-based frontend interface that allows users to view movies, read and submit reviews, and interact with an engaging star rating system.
 
+This web-app was inspired by https://github.com/IsAmitprajapati/movieoapp
+and modifications have been made as per requirements
+
 ## Live Demo
 
 Check out the live demo of the app here: [Movie Review App](https://movieioapp.web.app/)

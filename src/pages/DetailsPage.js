@@ -134,10 +134,10 @@ const DetailsPage = () => {
               Rating :  {Number(data?.vote_average).toFixed(1)}+ IMDB
             </p>
             <span>|</span>
-            <p>
+            {/* <p>
               View : {Number(data?.vote_count)}
             </p>
-            <span>|</span>
+            <span>|</span> */}
             <p>Duration : {duration[0]}h {duration[1]}m</p>
           </div>
 
@@ -148,19 +148,20 @@ const DetailsPage = () => {
             <p>{data?.overview}</p>
 
             <Divider />
-            <div className='flex items-center gap-3 my-3 text-center'>
-              <p>
-                Status : {data?.status}
-              </p>
-              <span>|</span>
-              <p>
-                Release Date : {moment(data?.release_date).format("MMMM Do YYYY")}
-              </p>
-              <span>|</span>
-              <p>
-                Revenue : {Number(data?.revenue)}
-              </p>
-            </div>
+            {/* Movie Details Section */}
+              <div className='flex flex-col'>
+                <div className='flex items-center'>
+                  <p><span className='text-white'>Status</span> : {data?.status}</p>
+                </div>
+                <Divider />
+                <div className='flex items-center'>
+                  <p><span className='text-white'>Release Date</span> : {moment(data?.release_date).format("MMMM Do YYYY")}</p>
+                </div>
+                <Divider />
+                <div className='flex items-center'>
+                  <p><span className='text-white'>Revenue</span> : {Number(data?.revenue).toLocaleString()}</p>
+                </div>
+              </div>  
 
             <Divider />
           </div>
@@ -168,11 +169,11 @@ const DetailsPage = () => {
           <div>
             <p><span className='text-white'>Director</span> : {castData?.crew[0]?.name}</p>
 
-            <Divider />
+            {/* <Divider />
 
             <p>
               <span className='text-white'>Writer : {writer}</span>
-            </p>
+            </p> */}
           </div>
 
           <Divider />
@@ -181,12 +182,13 @@ const DetailsPage = () => {
           <div>
             <h2 className='font-bold text-lg text-white'>Reviews</h2>
             <form onSubmit={handleReviewSubmit} className='my-4'>
-              <textarea
-                value={reviewInput}
-                onChange={(e) => setReviewInput(e.target.value)}
-                placeholder="Write your review here..."
-                className='w-full h-24 p-2 rounded bg-neutral-900 text-white'
-              />
+            <textarea
+              value={reviewInput}
+              onChange={(e) => setReviewInput(e.target.value)}
+              placeholder="Write your review here..."
+              className='w-full h-24 p-2 rounded border border-white bg-neutral-900 text-white'
+            />
+
               <div className="flex justify-center my-3">
                 {Array(5).fill(0).map((_, index) => (
                   <FaStar
@@ -228,11 +230,10 @@ const DetailsPage = () => {
           <Divider />
 
           <h2 className='font-bold text-lg'>Cast :</h2>
-          <div className='grid grid-cols-[repeat(auto-fit,96px)] gap-5 my-4'>
-            {
-              castData?.cast?.filter(el => el?.profile_path).map((starCast, index) => {
-                return (
-                  <div key={index}>
+            <div className='grid grid-cols-[repeat(auto-fit,96px)] gap-5 my-4 justify-center'>
+              {
+                castData?.cast?.filter(el => el?.profile_path).map((starCast, index) => (
+                  <div key={index} className='flex flex-col items-center'>
                     <div>
                       <img
                         src={imageURL + starCast?.profile_path}
@@ -241,10 +242,10 @@ const DetailsPage = () => {
                     </div>
                     <p className='font-bold text-center text-sm text-neutral-400'>{starCast?.name}</p>
                   </div>
-                )
-              })
-            }
-          </div>
+                ))
+              }
+            </div>
+
         </div>
       </div>
 

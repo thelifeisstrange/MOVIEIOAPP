@@ -65,7 +65,7 @@ The project is deployed using **Firebase Hosting**. You can view the live applic
 - **User Authentication**: Add user login functionality to manage reviews better.
 - **Pagination**: Implement pagination for movie lists to improve performance.
 - **Enhanced Edit/Delete**: Refine review editing and deletion processes with user authentication.
-- **CI/CD**: Setting up a CI/CD pipeline for continuous integrasion and deployment
+- **CI/CD**: Setting up a CI/CD pipeline for continuous integration and deployment
 
 ## Testing
 

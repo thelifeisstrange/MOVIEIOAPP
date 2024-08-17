@@ -33,20 +33,20 @@ To get started with the project:
    git clone https://github.com/yourusername/movie-review-app.git
 
 2. **Navigate into the project directory:**
-   ``bash
+   ```bash
    cd movie-review-app
 
 3. **Install the necessary dependencies:**
-   ``bash
+   ```bash
    npm install
 
 4. **Add your TMDb API key:**
    Create a .env file in the root of the project and add the following line:
-   ``bash
+   ```bash
    REACT_APP_TMDB_API_KEY=your_api_key_here
 
 5. **Run the application:**
-   ``bash
+   ```bash
    npm start
 
 ## Challenges Faced
